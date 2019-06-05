@@ -1,0 +1,50 @@
+nav{
+    height: 100%;
+    clear: both;
+    padding: 1em;
+    padding-right: 3em;
+    float: left;
+    /*border-right: 2px solid #000000;*/
+}
+body{
+    background: gray;
+    background-position: center;
+}
+header{
+    font-size: 20;
+    padding-top: 1em;
+    text-align: center;
+    background-color: lightseagreen;
+}
+label{
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+}
+input, label{
+    width: 100px;
+}
+
+.conteudo {
+    width: 940px;
+    height: 900px;
+	margin: 20px auto 20px auto;
+	border: 2px solid #000000;
+    background-color: white;
+    clear: both;
+}
+header, nav, section{
+    display: block;
+}
+
+nav p {
+    margin-right: 40px;
+    display: block;
+}
+nav  a, .menu a {
+    color: lightseagreen;
+    text-align: center;
+}
+nav  a:hover, nav a.current, .menu a:hover, .menu a.current {
+	color: lightsalmon;
+}

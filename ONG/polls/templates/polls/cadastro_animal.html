@@ -1,0 +1,71 @@
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Animal</title>
+    </head>
+
+    <body>
+        <div class="conteudo">
+        
+
+        <header>
+            <h1>ONG de Animais</h1>
+            <hr>
+        </header>
+
+        {% if permissao%}
+        <nav>
+            <p><a href="../">Home Page</a></p>
+            <p><a href="animal" class="current">Animais</a></p>
+            <p><a href="veterinario">Veterinários</a></p>
+            <p><a href="doacao">Doações</a></p>
+        </nav>
+        <div class="menu">
+            <a href="logout">Logout</a> 
+        </div>
+        <h2>Animal</h2>
+        <div class="menu">
+            <a href="listagem">Listagem</a>  |
+            <a href="{% url 'polls:cadastro_animal' %}" class="current">Cadastro</a>  |
+            <a href="{% url 'polls:edicao_animal' %}">Edição</a>  |
+            <a href="{% url 'polls:remocao_animal' %}">Remoção</a>  
+        </div>
+
+        <form action="{% url 'polls:Salva_animal' %}" method="POST"> 
+            {% csrf_token %} <!-- security seasons, whatever-->
+            <p>
+                <label>Nome: </label>
+                <input type="text" name="nome" />
+            </p>
+            <p>
+                <label>Idade:</label>
+                <input type="number" name="idade" />
+            </p>
+            <p>
+                <label>Especie:</label>
+                <input type="text" name="especie" />
+            </p>
+            <p>
+                <label>Raça:</label>
+                <input type="text" name="raca" />
+            </p>
+            <p>
+                <label>Observação:</label>
+                <input type="text" name="observacao"/>
+            </p>
+    
+            <br/>
+            <label></label>
+            <input type="submit" value="Cadastrar" /> 
+        </form> 
+        {% else %}
+            Você precisa fazer <a href='login'>login</a> antes de visualizar este conteúdo.
+        {% endif %}
+        </div>  
+    </body>
+</html>

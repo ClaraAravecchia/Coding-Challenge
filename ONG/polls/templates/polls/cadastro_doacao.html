@@ -1,0 +1,72 @@
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Doação</title>
+    </head>
+
+    <body>
+        <div class="conteudo">
+        
+
+        <header>
+            <h1>ONG de Animais</h1>
+            <hr>
+        </header>
+
+        {% if permissao %}
+        <nav>
+            <p><a href="../">Home Page</a></p>
+            <p><a href="animal" class="current">Animais</a></p>
+            <p><a href="veterinario">Veterinários</a></p>
+            <p><a href="doacao">Doações</a></p>
+        </nav>
+
+        <div class="menu">
+            <a href="logout">Logout</a> 
+        </div>
+        <h2>Doação</h2>
+        <div class="menu">
+            <a href="listagem">Listagem</a>  |
+            <a href="{% url 'polls:cadastro_doacao' %}" class="current">Cadastro</a>  |
+            <a href="{% url 'polls:edicao_doacao' %}">Edicao</a>  |
+            <a href="{% url 'polls:remocao_doacao' %}">Remoção</a>  
+            
+        </div>
+
+        <form action="{% url 'polls:salva_doacao' %}" method="POST"> 
+            {% csrf_token %} <!-- security seasons, whatever-->
+            <p>
+                <label>Nome: </label>
+                <input type="text" name="nome" id="doacao{{forloop.counter}}"  />
+            </p>
+            <p>
+                <label>Telefone:</label>
+                <input type="number" name="tel" />
+            </p>
+            <p>
+                <label>Tipo:</label>
+                <select name="tipo">
+                    <option value='racao'>Ração</option>
+                    <option value='med'>Medicamentos</option>
+                </select>
+            </p>
+            <p>
+                <label>Quantidade:</label>
+                <input type="number" name="qntidade" />
+            </p>
+            <br/>
+            <label></label>
+            <input type="submit" value="Cadastrar" /> 
+
+        </form> 
+        {% else %}
+            Você precisa fazer <a href='login'>login</a> antes de visualizar este conteúdo.
+        {% endif %} 
+        </div>  
+    </body>
+</html>

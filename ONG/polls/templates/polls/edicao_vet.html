@@ -1,0 +1,56 @@
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Veterinário</title>
+    </head>
+
+    <body>
+        <div class="conteudo">
+        <header>
+            <h1>ONG de Animais</h1>
+            <hr>
+        </header>
+
+        {% if permissao %}
+        <nav>
+            <p><a href="../">Home Page</a></p>
+            <p><a href="animal">Animais</a></p>
+            <p><a href="veterinario" class="current">Veterinários</a></p>
+            <p><a href="doacao">Doações</a></p>
+        </nav>
+        <div class="menu">
+            <a href="logout">Logout</a> 
+        </div>
+        <h2>Veterinário</h2>
+        <div class="menu">
+            <a href="listagem">Listagem</a>  |
+            <a href="{% url 'polls:cadastro_vet' %}">Cadastro</a>  |
+            <a href="{% url 'polls:edicao_vet' %}" class="current">Edição</a>  |
+            <a href="{% url 'polls:remocao_vet' %}">Remoção</a>  
+        </div>
+
+        <br/>
+        <form action="{% url 'polls:form_update_vet' %}" method="POST">
+            {% csrf_token %} <!-- security seasons, dont ask Cross site request foreign-->
+            <label>Editar:</label>
+            <select name="vet_selected">
+            {% for choice in vet %}
+                    <option value="{{choice.pk}}">{{choice}}</option>            
+                <br/>
+            {% endfor %}
+            </select>
+            
+            
+            <input type="submit" value="Editar" /> 
+        </form> 
+        {% else %}
+            Você precisa fazer <a href='login'>login</a> antes de visualizar este conteúdo.
+        {% endif %} 
+        </div>  
+    </body>
+</html>

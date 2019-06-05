@@ -1,0 +1,88 @@
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Animal</title>
+    </head>
+
+    <body>
+        <div class="conteudo">
+        
+
+        <header>
+            <h1>ONG de Animais</h1>
+            <hr>
+        </header>
+
+        <nav>
+            <p><a href="../">Home Page</a></p>
+            <p><a href="animal" class="current">Animais</a></p>
+            <p><a href="veterinario">Veterinários</a></p>
+            <p><a href="doacao">Doações</a></p>
+        </nav>
+        <div class="menu">
+            <a href="logout">Logout</a> 
+        </div>
+        <h2>Animal</h2>
+        <div class="menu">
+            <a href="listagem">Listagem</a>  |
+            <a href="{% url 'polls:cadastro_animal' %}">Cadastro</a>  |
+            <a href="{% url 'polls:edicao_animal' %}" class="current">Edição</a>  |
+            <a href="{% url 'polls:remocao_animal' %}">Remoção</a>  
+        </div>
+
+        <br/>
+        <form action="{% url 'polls:update_animal' %}" method="POST">
+            
+            {% csrf_token %} <!-- security seasons, dont ask Cross site request foreign-->
+            <input type="hidden" name="animal_selected" value="{{animal.pk}}" />
+            <p>
+                    <label>Nome: </label>
+                    <input type="text" name="nome" value={{animal.nome_animal}}  />
+                </p>
+                <p>
+                    <label>Idade:</label>
+                    <input type="number" name="idade" value="{{animal.idade}}"  />
+                </p>
+                <p>
+                    <label>Especie:</label>
+                    <input type="text" name="especie" value="{{animal.especie}}"  />
+                </p>
+                <p>
+                    <label>Raça:</label>
+                    <input type="text" name="raca" value="{{animal.raca}}" />
+                </p>
+                <p>
+                    <label>Observação:</label>
+                    <input type="text" name="observacao" value="{{animal.observacao}}" />
+                </p>
+                <hr>
+                <p>
+                        <label>Nova Consulta:</label>
+                        <input type="date" name="data"  />
+                    </p>
+    
+                    <p>                
+                        <label>Veterinário:</label>
+                        <select name="vet_selected">
+                        {% for choice in vet %}
+                                <option value="{{choice.pk}}">{{choice}}</option>            
+                            <br/>
+                        {% endfor %}
+                        </select>
+                    </p>
+                    <p>
+                        <label>Observação:</label>
+                        <input type="text" name="obs" />
+                    </p>
+            
+            <label></label>
+            <input type="submit" value="Editar" /> 
+        </form> 
+        </div>  
+    </body>
+</html>

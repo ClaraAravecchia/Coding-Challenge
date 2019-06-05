@@ -1,0 +1,60 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Home Page</title>
+    </head>
+
+    <body>
+        <div class="conteudo">
+        <header>
+            <h1>ONG de Animais</h1>
+            <hr>
+        </header>
+
+        {% if not permissao %}
+        <nav>
+            <p><a href="" class="current">Home Page</a></p>    <!-- Estranho mas ok -->
+            <p><a href="animal">Animais</a></p>
+            <p><a href="veterinario">Veterinários</a></p>
+            <p><a href="doacao">Doações</a></p>
+        </nav>
+        <div class="menu">  
+            <a href="logout">Logout</a> 
+        </div>
+        <h2>Login</h2>
+        <br/>
+        <form action="{% url 'polls:login' %}" method="POST">
+            {% csrf_token %} <!-- security seasons, dont ask Cross site request foreign-->
+            <p>
+                <label>Usuário:</label>
+                <input type="text" name="usuario" />
+            </p>
+
+            <p>
+                <label>Senha:</label>
+                <input type="password" name="senha" />
+            </p>
+            
+            <label></label>
+            <input type="submit" value="Entrar" /> 
+        </form> 
+            {% else %}
+            <nav>
+                <p><a href="../" class="current">Home Page</a></p>
+                <p><a href="animal">Animais</a></p>
+                <p><a href="veterinario">Veterinários</a></p>
+                <p><a href="doacoes">Doações</a></p>
+            </nav>
+
+            <div class="menu">
+                <a href="logout">Logout</a>   
+            </div>
+                <h1>Bem Vindo</h1>
+            {% endif %}
+        </div>
+    </body>
+</html>
